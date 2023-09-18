@@ -128,7 +128,7 @@ audio.ontimeupdate = function(e) {
   
 
 buttonRight.addEventListener('click', ()=>{
-    if(count >= musicAndImageData.length-2){
+    if(count >= musicAndImageData.length-1){
        console.log(musicAndImageData.length);
         count=-1
     }else{ count++
