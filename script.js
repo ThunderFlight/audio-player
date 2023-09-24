@@ -2,17 +2,23 @@ let musicAndImageData = [
     {
         background: './assets/images/HighWayToHellBackground.png',
         preView: './assets/images/HighWayToHellPreView.jpg',
-        music:'./assets/music/AC-DC - Highway To Hell.mp3'
+        music:'./assets/music/AC-DC - Highway To Hell.mp3',
+        name:'Highway To Hell',
+        author:'AC DC'
     },
     {
         background: './assets/images/ThunderFlightBackground.jpg',
         preView: './assets/images/PreViewThunderFlight.jpg',
-        music:'./assets/music/AC-DC - Thunderstruck.mp3'
+        music:'./assets/music/AC-DC - Thunderstruck.mp3',
+        name:'Thunderstruck',
+        author:'AC DC'
     },
     {
         background: './assets/images/UkranianGimnBackground.jpg',
         preView: './assets/images/UkrainianGimnPreView.jpg',
-        music:'./assets/music/gimn-ukrainy-Ponomarev.mp3'
+        music:'./assets/music/gimn-ukrainy-Ponomarev.mp3',
+        name:'Гімн України',
+        author:'Михайла Вербицького, Павла Чубинського'
     },
     {
         background: './assets/images/naIchiBackground.jpg',
@@ -28,7 +34,8 @@ let musicAndImageData = [
 let count=0
 let divPlayer = document.createElement('div')
 let img=document.createElement('img')
-let p=document.createElement('p')
+let h3NameMusic= document.createElement('h3')
+let pAuthorMusic=document.createElement('p')
 let divButtons=document.createElement('div')
 let buttonRight=document.createElement('button')
 let imgRight=document.createElement('img')
@@ -40,11 +47,13 @@ let audio=document.createElement('audio')
 let input=document.createElement('input')
 let inputVolume=document.createElement('input')
 let divInputRanges=document.createElement('div')
+let pTime=document.createElement('p')
 
 img.style.width='200px'
 img.style.height='200px'
 img.style.margin='0 auto'
-img.style.marginBottom='30px'
+img.style.marginBottom='15px'
+
 
 document.body.style.backgroundSize='cover'
 document.body.style.display='flex'
@@ -92,6 +101,7 @@ input.classList.add('musicSeconds')
 divInputRanges.style.display='flex'
 divInputRanges.style.justifyContent='space-around'
 divInputRanges.style.alignItems='center'
+divInputRanges.style.position='relative'
 
 inputVolume.style.width='50px'
 inputVolume.style.height='20px'
@@ -113,11 +123,28 @@ input.value='0'
 input.style.margin='0 auto'
 input.style.marginBottom='10px'
 
-audio.ontimeupdate = function(e) {
+h3NameMusic.innerHTML=`${musicAndImageData[count].name}`
+h3NameMusic.style.textAlign='center'
+h3NameMusic.style.fontSize='17px'
+h3NameMusic.style.marginBottom='10px'
+
+pAuthorMusic.innerHTML=`${musicAndImageData[count].author}`
+pAuthorMusic.style.textAlign='center'
+pAuthorMusic.style.fontSize='12px'
+pAuthorMusic.style.marginBottom='10px'
+
+pTime.style.position='absolute'
+pTime.style.top='-20px'
+pTime.style.right='78px'
+pTime.style.fontSize='14px'
+pTime.innerHTML=`${ (Math.floor(audio.currentTime/60))}:${(Math.floor(audio.currentTime)%60)} / 0:0`
+let minute = 0
+audio.ontimeupdate = function() {
     input.value = `${(100 * audio.currentTime) / audio.duration}`
-  }
-  
-  input.addEventListener("mouseup", (e) => {
+        pTime.innerHTML=`${ (Math.floor(audio.currentTime/60))}:${(Math.floor(audio.currentTime)%60)} / ${Math.floor(audio.duration/60)}:${Math.floor(audio.duration)%60}`
+}
+  console.log(+audio.currentTime % 60 === 0);
+  input.addEventListener("mouseup", () => {
     audio.currentTime = (input.value/100) * audio.duration
   })
 
@@ -134,9 +161,11 @@ buttonRight.addEventListener('click', ()=>{
     }else{ count++
         console.log(count);
         img.src=`${musicAndImageData[count].preView}`
+        h3NameMusic.innerHTML=`${musicAndImageData[count].name}`
+        pAuthorMusic.innerHTML=`${musicAndImageData[count].author}`
         audio.src=`${musicAndImageData[count].music}`
         document.body.style.backgroundImage =`url(${musicAndImageData[count].background})`
-        
+        imgPause.src='./assets/images/6613346_button_media_music_pause_player_icon.png'
     }
 })
 
@@ -148,6 +177,7 @@ buttonLeft.addEventListener('click', ()=>{
         img.src=`${musicAndImageData[count].preView}`
         audio.src=`${musicAndImageData[count].music}`
         document.body.style.backgroundImage =`url(${musicAndImageData[count].background})`
+        imgPause.src='./assets/images/6613346_button_media_music_pause_player_icon.png'
     }
 })
 
@@ -170,7 +200,8 @@ document.body.style.backgroundImage =`url(${musicAndImageData[count].background}
 
 document.querySelector('body').appendChild(divPlayer)
 divPlayer.appendChild(img)
-divPlayer.appendChild(p)
+divPlayer.appendChild(h3NameMusic)
+divPlayer.appendChild(pAuthorMusic)
 divPlayer.appendChild(divButtons)
 divButtons.appendChild(buttonLeft)
 divButtons.appendChild(buttonPause)
@@ -179,5 +210,6 @@ buttonRight.appendChild(imgRight)
 buttonPause.appendChild(imgPause)
 buttonLeft.appendChild(imgLeft)
 divPlayer.appendChild(divInputRanges)
+divInputRanges.appendChild(pTime)
 divInputRanges.appendChild(input)
 divInputRanges.appendChild(inputVolume)
