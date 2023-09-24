@@ -144,7 +144,11 @@ pTime.style.fontSize='14px'
 pTime.innerHTML=`${ (Math.floor(audio.currentTime/60))}:${(Math.floor(audio.currentTime)%60)} / 0:0`
 let minute = 0
 audio.ontimeupdate = function() {
-    input.value = `${(100 * audio.currentTime) / audio.duration}`
+    if(audio.currentTime === 0){
+        input.value='0'
+    }else{
+        input.value = `${(100 * audio.currentTime) / audio.duration}`
+    }
     if(isNaN(audio.duration)){
         pTime.innerHTML=`${ (Math.floor(audio.currentTime/60))}:${(Math.floor(audio.currentTime)%60)} / 0:0`
     }else{
