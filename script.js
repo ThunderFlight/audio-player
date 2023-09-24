@@ -145,7 +145,11 @@ pTime.innerHTML=`${ (Math.floor(audio.currentTime/60))}:${(Math.floor(audio.curr
 let minute = 0
 audio.ontimeupdate = function() {
     input.value = `${(100 * audio.currentTime) / audio.duration}`
+    if(isNaN(audio.duration)){
+        pTime.innerHTML=`${ (Math.floor(audio.currentTime/60))}:${(Math.floor(audio.currentTime)%60)} / 0:0`
+    }else{
         pTime.innerHTML=`${ (Math.floor(audio.currentTime/60))}:${(Math.floor(audio.currentTime)%60)} / ${Math.floor(audio.duration/60)}:${Math.floor(audio.duration)%60}`
+    }
 }
   console.log(+audio.currentTime % 60 === 0);
   input.addEventListener("mouseup", () => {
