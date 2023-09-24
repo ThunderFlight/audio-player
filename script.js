@@ -23,12 +23,16 @@ let musicAndImageData = [
     {
         background: './assets/images/naIchiBackground.jpg',
         preView: './assets/images/naIchiPreView.jpg',
-        music:'./assets/music/leat-eq-tokyo-mp3.mp3'
+        music:'./assets/music/leat-eq-tokyo-mp3.mp3',
+        name:'Tokyo',
+        author:'Leat\'eq'
     },
     {
         background: './assets/images/commotionBackground.png',
         preView: './assets/images/commotionPreView.jpg',
-        music:'./assets/music/ndls404_-_Commotion_(musmore.com).mp3'
+        music:'./assets/music/ndls404_-_Commotion_(musmore.com).mp3',
+        name:'Commotion',
+        author:'ndls404'
     },
 ]
 let count=0
